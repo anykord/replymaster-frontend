@@ -3,25 +3,72 @@ import Header from "@/components/Header";
 import LoginForm from "@/components/LoginForm";
 
 export default function Home() {
+  const site = {
+    url: "https://replymaster.top",
+    name: "ReplyMaster — умный администратор для чатов и групп",
+    description:
+      "ReplyMaster — AI-инструмент, который отвечает, консультирует и продаёт в ваших Telegram-группах и чатах. Работает как администратор и помогает увеличить конверсию.",
+    image: "/og-image.png", // загрузим в public (см. ниже)
+  };
+
+  const ldJson = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "ReplyMaster",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    url: site.url,
+    description: site.description,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      description: "Бесплатный тестовый доступ",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ReplyMaster",
+      url: site.url,
+    },
+  };
+
   return (
     <>
       <Head>
-        <title>ReplyMaster — умный администратор для чатов и групп</title>
-        <meta
-          name="description"
-          content="ReplyMaster — AI-инструмент, который отвечает, консультирует и продаёт в ваших Telegram-группах, чатах и каналах. Работает как администратор и помогает увеличить конверсию."
-        />
+        <title>{site.name}</title>
+        <meta name="description" content={site.description} />
         <meta
           name="keywords"
           content="replymaster, telegram bot, администратор, автоответчик, искусственный интеллект, продажи, чаты, группы, лидогенерация, автоворонка, автоматизация"
         />
-        <meta property="og:title" content="ReplyMaster — AI-администратор для ваших групп и чатов" />
-        <meta
-          property="og:description"
-          content="Автоматизируйте ответы, продажи и коммуникацию в Telegram-группах с помощью ReplyMaster."
-        />
-        <meta property="og:url" content="https://replymaster.top" />
+        {/* Canonical */}
+        <link rel="canonical" href={site.url} />
+        {/* Favicon & manifest */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#0f172a" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content={site.name} />
+        <meta property="og:description" content={site.description} />
         <meta property="og:type" content="website" />
+        <meta property="og:url" content={site.url} />
+        <meta property="og:image" content={`${site.url}${site.image}`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={site.name} />
+        <meta name="twitter:description" content={site.description} />
+        <meta name="twitter:image" content={`${site.url}${site.image}`} />
+
+        {/* JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }}
+        />
       </Head>
 
       <Header />
@@ -31,9 +78,9 @@ export default function Home() {
           <div className="hero-text">
             <h1>ReplyMaster — ваш AI-администратор в Telegram-группах</h1>
             <p className="lead">
-              Программа, которая умеет автоматически отвечать на вопросы, обрабатывать заявки и
-              увеличивать продажи прямо в ваших чатах и каналах.  
-              Работает как администратор и помогает держать активность 24/7.
+              Программа, которая автоматически отвечает, консультирует и
+              обрабатывает заявки прямо в ваших чатах и каналах. Работает как
+              администратор и поддерживает активность 24/7.
             </p>
             <div className="cta">
               <a href="#login" className="btn">Попробовать бесплатно</a>
@@ -41,7 +88,8 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-image">
-            <img src="/bot-illustration.png" alt="ReplyMaster бот" />
+            {/* Можно заменить на свой скрин/иллюстрацию */}
+            <img src="/og-image.png" alt="ReplyMaster бот" />
           </div>
         </section>
 
@@ -61,7 +109,7 @@ export default function Home() {
           <h2>Как это работает</h2>
           <ol>
             <li>Подключаете ReplyMaster к своему Telegram-аккаунту или группе.</li>
-            <li>Указываете интересы, темы и ключевые слова.</li>
+            <li>Указываете темы, интересы и ключевые слова.</li>
             <li>ReplyMaster автоматически отвечает и консультирует участников.</li>
             <li>Вы получаете статистику и лиды в удобном интерфейсе.</li>
           </ol>
@@ -70,10 +118,10 @@ export default function Home() {
         <section id="use" className="use">
           <h2>Где можно использовать</h2>
           <ul>
-            <li>В собственных Telegram-группах и каналах</li>
-            <li>В открытых чатах по интересам</li>
+            <li>В собственных Telegram-группах и каналах (как администратор)</li>
+            <li>В открытых тематических чатах</li>
             <li>Для сбора заявок из личных сообщений</li>
-            <li>Для сопровождения воронок и обучения</li>
+            <li>Для сопровождения воронок, обучения и поддержки</li>
           </ul>
         </section>
 
@@ -115,18 +163,18 @@ export default function Home() {
           gap: 12px;
         }
         .btn {
-          background: #0070f3;
+          background: #0f172a;
           color: white;
           border: none;
           padding: 12px 20px;
-          border-radius: 8px;
-          font-weight: 600;
+          border-radius: 10px;
+          font-weight: 700;
           cursor: pointer;
           text-decoration: none;
         }
         .btn.secondary {
-          background: #e0e0e0;
-          color: #222;
+          background: #e5e7eb;
+          color: #111827;
         }
         .features, .how, .use {
           padding: 60px 0;
@@ -149,14 +197,23 @@ export default function Home() {
           color: #666;
           border-top: 1px solid #eee;
         }
+        .hero-image img {
+          width: 100%;
+          max-width: 520px;
+          border-radius: 14px;
+          box-shadow: 0 10px 30px rgba(2,6,23,.15);
+        }
         @media (max-width: 900px) {
           .hero {
             grid-template-columns: 1fr;
             text-align: center;
           }
           .hero-image img {
-            max-width: 300px;
+            max-width: 320px;
             margin: 0 auto;
+          }
+          .cta {
+            justify-content: center;
           }
         }
       `}</style>
