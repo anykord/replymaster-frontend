@@ -1,93 +1,165 @@
 import Head from "next/head";
-import Header from "../components/Header";
-import LoginForm from "../components/LoginForm";
+import Header from "@/components/Header";
+import LoginForm from "@/components/LoginForm";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>ReplyMaster — AI-ответы и лидогенерация в Telegram</title>
-        <meta name="description" content="Экспертные, нативные AI-ответы в Telegram-чатах: находите вопросы, отвечайте по делу, собирайте лиды — без спама." />
+        <title>ReplyMaster — умный администратор для чатов и групп</title>
+        <meta
+          name="description"
+          content="ReplyMaster — AI-инструмент, который отвечает, консультирует и продаёт в ваших Telegram-группах, чатах и каналах. Работает как администратор и помогает увеличить конверсию."
+        />
+        <meta
+          name="keywords"
+          content="replymaster, telegram bot, администратор, автоответчик, искусственный интеллект, продажи, чаты, группы, лидогенерация, автоворонка, автоматизация"
+        />
+        <meta property="og:title" content="ReplyMaster — AI-администратор для ваших групп и чатов" />
+        <meta
+          property="og:description"
+          content="Автоматизируйте ответы, продажи и коммуникацию в Telegram-группах с помощью ReplyMaster."
+        />
+        <meta property="og:url" content="https://replymaster.top" />
+        <meta property="og:type" content="website" />
       </Head>
 
       <Header />
 
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-inner container">
-          <div className="hero-copy">
-            <span className="badge">SaaS • Telegram • GPT</span>
-            <h1>Экспертные AI-ответы в Telegram<br/>и лиды из открытых групп</h1>
+      <main className="container">
+        <section className="hero">
+          <div className="hero-text">
+            <h1>ReplyMaster — ваш AI-администратор в Telegram-группах</h1>
             <p className="lead">
-              ReplyMaster находит вопросы по вашей нише в открытых чатах и отвечает нативно от вашего имени.
-              Помогайте людям — и получайте входящие заявки. Без спама.
+              Программа, которая умеет автоматически отвечать на вопросы, обрабатывать заявки и
+              увеличивать продажи прямо в ваших чатах и каналах.  
+              Работает как администратор и помогает держать активность 24/7.
             </p>
             <div className="cta">
-              <a className="btn" href="#auth">Начать бесплатно</a>
-              <a className="btn ghost" href="#how">Как это работает</a>
-            </div>
-            <p className="muted tiny">В бесплатном плане — 10 ответов.</p>
-          </div>
-
-          <div className="hero-card" id="auth">
-            <LoginForm />
-          </div>
-        </div>
-      </section>
-
-      {/* FEATURES */}
-      <section id="features" className="section">
-        <div className="container">
-          <h2>Почему ReplyMaster</h2>
-          <div className="grid3">
-            <div className="card">
-              <h3>Нативно и этично</h3>
-              <p>Ответы звучат как эксперт. Мы работаем только в открытых чатах — без навязчивых рассылок.</p>
-            </div>
-            <div className="card">
-              <h3>Тон и роль</h3>
-              <p>Настрой контекст: «Лера — преподаватель корейского», стиль, ссылки и CTA. Помощь — на первом месте.</p>
-            </div>
-            <div className="card">
-              <h3>Лиды — как следствие</h3>
-              <p>Люди сами переходят к вам за дополнительной помощью, курсом, консультацией или туром.</p>
+              <a href="#login" className="btn">Попробовать бесплатно</a>
+              <a href="#features" className="btn secondary">Что умеет</a>
             </div>
           </div>
-        </div>
-      </section>
+          <div className="hero-image">
+            <img src="/bot-illustration.png" alt="ReplyMaster бот" />
+          </div>
+        </section>
 
-      {/* HOW IT WORKS */}
-      <section id="how" className="section alt">
-        <div className="container">
-          <h2>Как это работает</h2>
-        </div>
-        <div className="container">
-          <ol className="how">
-            <li><strong>Подключение.</strong> Авторизация через Google, добавление аккаунта Telegram, выбор чатов.</li>
-            <li><strong>Настройка.</strong> Роль/тон, триггеры тем, предустановки ответов, ссылка на ваш оффер.</li>
-            <li><strong>Ответ.</strong> Система находит вопрос и формирует нативный экспертный ответ — авто/ручной режим.</li>
-          </ol>
-        </div>
-      </section>
-
-      {/* USE CASES */}
-      <section id="use" className="section">
-        <div className="container">
-          <h2>Где можно использовать</h2>
-          <ul className="bullets">
-            <li>свои группы и каналы</li>
-            <li>открытые тематические чаты</li>
-            <li>личные сообщения по запросу</li>
+        <section id="features" className="features">
+          <h2>Что умеет ReplyMaster</h2>
+          <ul className="feature-list">
+            <li>🤖 Отвечает на вопросы пользователей как человек</li>
+            <li>💬 Работает в Telegram-чатах, каналах и личных сообщениях</li>
+            <li>🧠 Настраивается под ваши сценарии общения и продукты</li>
+            <li>💰 Конвертирует диалоги в продажи</li>
+            <li>📈 Собирает аналитику запросов и вовлечённости</li>
+            <li>🔐 Работает только в разрешённых чатах — этично и безопасно</li>
           </ul>
-        </div>
-      </section>
+        </section>
 
-      <footer className="footer">
-        <div className="container">
-          <div>© {new Date().getFullYear()} ReplyMaster</div>
-          <div className="muted tiny">Этично и прозрачно: работаем только в открытых чатах.</div>
-        </div>
-      </footer>
+        <section id="how" className="how">
+          <h2>Как это работает</h2>
+          <ol>
+            <li>Подключаете ReplyMaster к своему Telegram-аккаунту или группе.</li>
+            <li>Указываете интересы, темы и ключевые слова.</li>
+            <li>ReplyMaster автоматически отвечает и консультирует участников.</li>
+            <li>Вы получаете статистику и лиды в удобном интерфейсе.</li>
+          </ol>
+        </section>
+
+        <section id="use" className="use">
+          <h2>Где можно использовать</h2>
+          <ul>
+            <li>В собственных Telegram-группах и каналах</li>
+            <li>В открытых чатах по интересам</li>
+            <li>Для сбора заявок из личных сообщений</li>
+            <li>Для сопровождения воронок и обучения</li>
+          </ul>
+        </section>
+
+        <section id="login" className="login">
+          <LoginForm />
+        </section>
+
+        <footer className="footer">
+          <p>© 2025 ReplyMaster · Все права защищены.</p>
+          <p><a href="/policy">Политика и условия</a></p>
+        </footer>
+      </main>
+
+      <style jsx>{`
+        .container {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 40px 16px;
+        }
+        .hero {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+          align-items: center;
+          padding: 80px 0;
+        }
+        .hero-text h1 {
+          font-size: 2.4rem;
+          line-height: 1.3;
+          margin-bottom: 16px;
+        }
+        .lead {
+          font-size: 1.2rem;
+          color: #555;
+          margin-bottom: 24px;
+        }
+        .cta {
+          display: flex;
+          gap: 12px;
+        }
+        .btn {
+          background: #0070f3;
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+          text-decoration: none;
+        }
+        .btn.secondary {
+          background: #e0e0e0;
+          color: #222;
+        }
+        .features, .how, .use {
+          padding: 60px 0;
+        }
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+        }
+        ul, ol {
+          margin-left: 20px;
+          color: #333;
+          line-height: 1.6;
+        }
+        .feature-list li {
+          margin-bottom: 8px;
+        }
+        .footer {
+          text-align: center;
+          padding: 40px 0;
+          color: #666;
+          border-top: 1px solid #eee;
+        }
+        @media (max-width: 900px) {
+          .hero {
+            grid-template-columns: 1fr;
+            text-align: center;
+          }
+          .hero-image img {
+            max-width: 300px;
+            margin: 0 auto;
+          }
+        }
+      `}</style>
     </>
   );
 }
