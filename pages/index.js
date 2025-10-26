@@ -1,72 +1,93 @@
+import Head from "next/head";
+import Header from "../components/Header";
+import LoginForm from "../components/LoginForm";
 
-import Head from 'next/head'
-import Header from '../components/Header'
-import FeatureCard from '../components/FeatureCard'
-import LoginForm from '../components/LoginForm'
-
-export default function Home(){
+export default function Home() {
   return (
     <>
       <Head>
-        <title>ReplyMaster — AI‑ассистент для Telegram</title>
-        <meta name="description" content="Автоматизация экспертных ответов в Telegram. 10 бесплатных сообщений." />
+        <title>ReplyMaster — AI-ответы и лидогенерация в Telegram</title>
+        <meta name="description" content="Экспертные, нативные AI-ответы в Telegram-чатах: находите вопросы, отвечайте по делу, собирайте лиды — без спама." />
       </Head>
+
       <Header />
-      <main className="container">
-        <section className="hero">
-          <div>
-            <span className="badge">AI для Telegram‑чатов</span>
-            <h1>Экспертные ответы и нативные продажи<br/>в ваших и открытых группах</h1>
-            <p className="lead">ReplyMaster отвечает как вы: персонализация под ваш стиль, связка с GPT и Telethon. Тест: 10 бесплатных сообщений.</p>
+
+      {/* HERO */}
+      <section className="hero">
+        <div className="hero-inner container">
+          <div className="hero-copy">
+            <span className="badge">SaaS • Telegram • GPT</span>
+            <h1>Экспертные AI-ответы в Telegram<br/>и лиды из открытых групп</h1>
+            <p className="lead">
+              ReplyMaster находит вопросы по вашей нише в открытых чатах и отвечает нативно от вашего имени.
+              Помогайте людям — и получайте входящие заявки. Без спама.
+            </p>
             <div className="cta">
-              <a href="#auth" className="btn">Попробовать бесплатно</a>
-              <a className="btn secondary" href="#how">Как это работает</a>
+              <a className="btn" href="#auth">Начать бесплатно</a>
+              <a className="btn ghost" href="#how">Как это работает</a>
+            </div>
+            <p className="muted tiny">В бесплатном плане — 10 ответов.</p>
+          </div>
+
+          <div className="hero-card" id="auth">
+            <LoginForm />
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES */}
+      <section id="features" className="section">
+        <div className="container">
+          <h2>Почему ReplyMaster</h2>
+          <div className="grid3">
+            <div className="card">
+              <h3>Нативно и этично</h3>
+              <p>Ответы звучат как эксперт. Мы работаем только в открытых чатах — без навязчивых рассылок.</p>
+            </div>
+            <div className="card">
+              <h3>Тон и роль</h3>
+              <p>Настрой контекст: «Лера — преподаватель корейского», стиль, ссылки и CTA. Помощь — на первом месте.</p>
+            </div>
+            <div className="card">
+              <h3>Лиды — как следствие</h3>
+              <p>Люди сами переходят к вам за дополнительной помощью, курсом, консультацией или туром.</p>
             </div>
           </div>
-          <div className="card">
-            <h3 style={{marginTop:0}}>Быстрый старт</h3>
-            <ol className="muted">
-              <li>Авторизуйтесь и создайте бота</li>
-              <li>Подключите открытые чаты или свои группы</li>
-              <li>Опишите тон и цели — остальное сделает AI</li>
-            </ol>
-          </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="features" style={{marginTop:10}}>
-          <h2>Преимущества</h2>
-          <div className="grid3">
-            <FeatureCard title="Без спама" desc="Ответы выглядят как ваши, а не как реклама. Нативный формат, контекст из чата." />
-            <FeatureCard title="Глубокая персонализация" desc="Настраиваем роль: “Я Лера, преподаю корейский...” и стиль ответов." />
-            <FeatureCard title="Гибкая монетизация" desc="Лиды в личку, бесплатные уроки, автоматические воронки." />
-          </div>
-        </section>
-
-        <section id="how" style={{marginTop:30}}>
+      {/* HOW IT WORKS */}
+      <section id="how" className="section alt">
+        <div className="container">
           <h2>Как это работает</h2>
-          <div className="how">
-            <div className="step"><b>1. Подключение</b><p className="muted">Авторизация, подключение чатов, выбор триггеров.</p></div>
-            <div className="step"><b>2. Генерация</b><p className="muted">GPT формирует экспертные ответы и предлагает нативные офферы.</p></div>
-            <div className="step"><b>3. Аналитика</b><p className="muted">Счётчик сообщений, лиды, конверсия в запросы и продажи.</p></div>
-          </div>
-        </section>
+        </div>
+        <div className="container">
+          <ol className="how">
+            <li><strong>Подключение.</strong> Авторизация через Google, добавление аккаунта Telegram, выбор чатов.</li>
+            <li><strong>Настройка.</strong> Роль/тон, триггеры тем, предустановки ответов, ссылка на ваш оффер.</li>
+            <li><strong>Ответ.</strong> Система находит вопрос и формирует нативный экспертный ответ — авто/ручной режим.</li>
+          </ol>
+        </div>
+      </section>
 
-        <section style={{marginTop:30, display:'grid', gridTemplateColumns:'1fr 1fr', gap:16}}>
-          <LoginForm />
-          <div className="card">
-            <h3 style={{marginTop:0}}>Где можно использовать</h3>
-            <ul className="muted">
-              <li>ваши группы и каналы</li>
-              <li>открытые тематические чаты</li>
-              <li>личные сообщения по запросу</li>
-            </ul>
-            <p className="muted">Мы действуем этично: только в открытых чатах и без навязчивых рассылок.</p>
-          </div>
-        </section>
-      </main>
-      <footer>
-        <div className="container">© {new Date().getFullYear()} ReplyMaster • Политика и условия — по запросу</div>
+      {/* USE CASES */}
+      <section id="use" className="section">
+        <div className="container">
+          <h2>Где можно использовать</h2>
+          <ul className="bullets">
+            <li>свои группы и каналы</li>
+            <li>открытые тематические чаты</li>
+            <li>личные сообщения по запросу</li>
+          </ul>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="container">
+          <div>© {new Date().getFullYear()} ReplyMaster</div>
+          <div className="muted tiny">Этично и прозрачно: работаем только в открытых чатах.</div>
+        </div>
       </footer>
     </>
-  )
+  );
 }
