@@ -1,33 +1,18 @@
-import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
-
+// components/Header.jsx
 export default function Header() {
-  const { data: session } = useSession();
-
   return (
-    <nav className="topbar">
-      <div className="topbar-inner container">
+    <header className="header">
+      <div className="container header__inner">
         <div className="brand">
-          <Link href="/"><span className="logo">ReplyMaster</span></Link>
+          <img src="/favicon.svg" alt="ReplyMaster" className="brand__logo" />
+          <span className="brand__name">ReplyMaster</span>
         </div>
-
-        <ul className="menu">
-          <li><a href="#features">Возможности</a></li>
-          <li><a href="#how">Как работает</a></li>
-          <li><a href="#use">Где использовать</a></li>
-        </ul>
-
-        <div className="actions">
-          {session ? (
-            <>
-              <Link className="btn ghost" href="/dashboard">Дашборд</Link>
-              <button className="btn secondary" onClick={() => signOut()}>Выйти</button>
-            </>
-          ) : (
-            <button className="btn" onClick={() => signIn("github")}>Войти с GitHub</button>
-          )}
-        </div>
+        <nav className="nav">
+          <a href="#how" className="nav__link">Как работает</a>
+          <a href="#features" className="nav__link">Преимущества</a>
+          <a href="#use" className="nav__link">Где использовать</a>
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 }
