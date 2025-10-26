@@ -29,9 +29,11 @@ export default function LoginForm(){
   return (
     <div className="login-card">
       <h3>Войти в личный кабинет</h3>
-      <p className="muted">Выберите Google-аккаунт — это безопасно.</p>
-      <button className="btn wide" onClick={() => signIn("google")}>Войти с Google</button>
-      <p className="tiny muted">Авторизация нужна только для доступа к дашборду и настройкам.</p>
+      <p className="muted">Быстрая авторизация через GitHub.</p>
+      <button className="btn wide" onClick={() => signIn("github")}>
+        Войти с GitHub
+      </button>
+      <p className="tiny muted">Авторизация нужна только для дашборда и настроек.</p>
     </div>
   );
 }
