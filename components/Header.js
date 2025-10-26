@@ -13,7 +13,7 @@ export default function Header() {
 
         <ul className="menu">
           <li><a href="#features">Возможности</a></li>
-          <li><a href="#how">Как это работает</a></li>
+          <li><a href="#how">Как работает</a></li>
           <li><a href="#use">Где использовать</a></li>
         </ul>
 
@@ -24,7 +24,7 @@ export default function Header() {
               <button className="btn secondary" onClick={() => signOut()}>Выйти</button>
             </>
           ) : (
-            <button className="btn" onClick={() => signIn("google")}>Войти с Google</button>
+            <button className="btn" onClick={() => signIn("github")}>Войти с GitHub</button>
           )}
         </div>
       </div>
