@@ -1,35 +1,37 @@
+import { useSession, signIn, signOut } from "next-auth/react";
 
-import { useState } from 'react';
-const API = process.env.NEXT_PUBLIC_API_URL || 'https://api.replymaster.top';
 export default function LoginForm(){
-  const [email,setEmail] = useState('');
-  const [pass,setPass] = useState('');
-  const [msg,setMsg] = useState(null);
-  async function onSubmit(e){
-    e.preventDefault();
-    setMsg('Проверяем соединение...');
-    try{
-      const r = await fetch(API + '/health');
-      const j = await r.json();
-      setMsg(j.ok ? 'API доступно. Авторизация будет добавлена позже.' : 'API недоступно');
-    }catch(err){ setMsg('Не удалось связаться с API'); }
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div className="login-card"><p className="muted">Загружаем профиль…</p></div>;
   }
-  return (
-    <form onSubmit={onSubmit} className="login" id="auth">
-      <h3>Войти в личный кабинет</h3>
-      <p className="muted" style={{marginTop:-6}}>Пока что демо: проверяется соединение с API.</p>
-      <div style={{display:'grid', gap:12, marginTop:12}}>
-        <div>
-          <label>E‑mail</label>
-          <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@example.com" />
+
+  if (session) {
+    return (
+      <div className="login-card">
+        <h3>Вы вошли</h3>
+        <div className="user">
+          {session.user?.image && <img src={session.user.image} alt="" />}
+          <div>
+            <div className="name">{session.user?.name}</div>
+            <div className="muted">{session.user?.email}</div>
+          </div>
         </div>
-        <div>
-          <label>Пароль</label>
-          <input value={pass} onChange={e=>setPass(e.target.value)} type="password" placeholder="••••••••" />
+        <div className="login-actions">
+          <a className="btn" href="/dashboard">Перейти в дашборд</a>
+          <button className="btn secondary" onClick={() => signOut()}>Выйти</button>
         </div>
-        <button className="btn" type="submit">Войти</button>
-        {msg && <div className="muted">{msg}</div>}
       </div>
-    </form>
-  )
+    );
+  }
+
+  return (
+    <div className="login-card">
+      <h3>Войти в личный кабинет</h3>
+      <p className="muted">Выберите Google-аккаунт — это безопасно.</p>
+      <button className="btn wide" onClick={() => signIn("google")}>Войти с Google</button>
+      <p className="tiny muted">Авторизация нужна только для доступа к дашборду и настройкам.</p>
+    </div>
+  );
 }
