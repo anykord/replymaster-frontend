@@ -1,17 +1,33 @@
+import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
 
-export default function Header(){
+export default function Header() {
+  const { data: session } = useSession();
+
   return (
-    <header>
-      <div className="container">
-        <nav>
-          <div className="logo">ReplyMaster</div>
-          <div style={{display:'flex', gap:14}}>
-            <a href="#features" className="muted">Возможности</a>
-            <a href="#how" className="muted">Как это работает</a>
-            <a href="#auth" className="btn secondary">Войти</a>
-          </div>
-        </nav>
+    <nav className="topbar">
+      <div className="topbar-inner container">
+        <div className="brand">
+          <Link href="/"><span className="logo">ReplyMaster</span></Link>
+        </div>
+
+        <ul className="menu">
+          <li><a href="#features">Возможности</a></li>
+          <li><a href="#how">Как это работает</a></li>
+          <li><a href="#use">Где использовать</a></li>
+        </ul>
+
+        <div className="actions">
+          {session ? (
+            <>
+              <Link className="btn ghost" href="/dashboard">Дашборд</Link>
+              <button className="btn secondary" onClick={() => signOut()}>Выйти</button>
+            </>
+          ) : (
+            <button className="btn" onClick={() => signIn("google")}>Войти с Google</button>
+          )}
+        </div>
       </div>
-    </header>
-  )
+    </nav>
+  );
 }
