@@ -14,10 +14,12 @@ export default function AccountsPage() {
   return (
     <DashboardLayout>
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold">Аккаунты Telegram</h1>
+        <h1 className="rm-ink" style={{fontSize:28,fontWeight:800}}>Аккаунты Telegram</h1>
         <AddAccountDialog onAdd={(acc)=>setAccounts([...accounts, {id:Date.now()+'', ...acc}])} />
       </div>
+
       <div className="mb-4"><UsageBadge label="Аккаунты" used={quotas.used} limit={quotas.limit} /></div>
+
       {quotas.used >= quotas.limit && (
         <div className="mb-4">
           <LimitUpsell
@@ -28,6 +30,7 @@ export default function AccountsPage() {
           />
         </div>
       )}
+
       <div className="grid gap-4 md:grid-cols-3">
         {accounts.map(a=> <AccountCard key={a.id} acc={a} />)}
       </div>
@@ -35,5 +38,9 @@ export default function AccountsPage() {
   );
 }
 
-
-export { default } from './_secure';
+import { getSession } from 'next-auth/react';
+export async function getServerSideProps(ctx){
+  const session = await getSession(ctx);
+  if(!session){ return { redirect: { destination: '/login', permanent: false } } }
+  return { props: { session } };
+}
