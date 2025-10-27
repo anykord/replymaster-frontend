@@ -14,10 +14,12 @@ export default function GroupsPage() {
   return (
     <DashboardLayout>
       <div className="flex items-center justify-between mb-4">
-        <h1 className="text-2xl font-semibold">Группы</h1>
+        <h1 className="rm-ink" style={{fontSize:28,fontWeight:800}}>Группы</h1>
         <AddGroupDialog onAdd={(g)=>setGroups([...groups, {id:Date.now()+'', ...g}])} />
       </div>
+
       <div className="mb-4"><UsageBadge label="Группы" used={quotas.used} limit={quotas.limit} /></div>
+
       {quotas.used >= quotas.limit && (
         <div className="mb-4">
           <LimitUpsell
@@ -28,6 +30,7 @@ export default function GroupsPage() {
           />
         </div>
       )}
+
       <div className="grid gap-4 md:grid-cols-3">
         {groups.map(g=> <GroupCard key={g.id} group={g} />)}
       </div>
@@ -35,5 +38,9 @@ export default function GroupsPage() {
   );
 }
 
-
-export { default } from './_secure';
+import { getSession } from 'next-auth/react';
+export async function getServerSideProps(ctx){
+  const session = await getSession(ctx);
+  if(!session){ return { redirect: { destination: '/login', permanent: false } } }
+  return { props: { session } };
+}
