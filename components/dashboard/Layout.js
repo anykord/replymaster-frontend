@@ -1,7 +1,27 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useSession, signOut } from 'next-auth/react';
 
-export default function DashboardLayout({ children }) {
+function Topbar() {
+  const { data: session } = useSession();
+  return (
+    <header className="rm-border" style={{background:'#fff', borderBottom:'1px solid var(--line)'}}>
+      <div className="wrap" style={{display:'flex',alignItems:'center',justifyContent:'space-between',height:64}}>
+        <div className="brand"><span className="logo" /> <span>Replymaster</span></div>
+        <div style={{display:'flex',alignItems:'center',gap:12}}>
+          {session?.user && (
+            <>
+              <span className="small muted">{session.user.name || session.user.email}</span>
+              <button className="auth" onClick={()=>signOut({ callbackUrl: '/' })}>Выйти</button>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function Sidebar() {
   const router = useRouter();
   const items = [
     { href: '/dashboard', label: 'Главная' },
@@ -15,18 +35,30 @@ export default function DashboardLayout({ children }) {
   ];
 
   return (
-    <div className="min-h-screen flex">
-      <aside className="w-64 bg-white rm-border">
-        <div className="p-4 font-bold rm-ink">Replymaster</div>
-        <nav className="px-2 space-y-1 pb-4">
-          {items.map(it => (
-            <Link key={it.href} href={it.href} className={`block rounded px-3 py-2 text-sm hover:bg-indigo-50 ${router.pathname===it.href ? 'rm-sidebar-active' : 'text-gray-700'}`}>
-              {it.label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
-      <main className="flex-1 p-6">{children}</main>
+    <aside className="rm-border" style={{width:256, background:'#fff', borderRight:'1px solid var(--line)'}}>
+      <nav className="wrap" style={{padding:'16px 12px'}}>
+        {items.map(it => (
+          <Link key={it.href}
+            href={it.href}
+            className={`rm-sidebar-link ${router.pathname===it.href ? 'rm-sidebar-active' : ''}`}>
+            {it.label}
+          </Link>
+        ))}
+      </nav>
+    </aside>
+  );
+}
+
+export default function DashboardLayout({ children }) {
+  return (
+    <div className="min-h-screen">
+      <Topbar />
+      <div style={{display:'grid', gridTemplateColumns:'256px 1fr', gap:0}}>
+        <Sidebar />
+        <main className="wrap" style={{padding:'24px 24px 48px 24px'}}>
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
