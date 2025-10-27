@@ -1,16 +1,28 @@
 // pages/index.js
 import Head from "next/head";
-import { signIn, getSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 export default function Home() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
   const year = new Date().getFullYear();
 
   // ——— CTA handlers ———
-  const startFree = () =>
-    signIn("github", { callbackUrl: "/dashboard?start=free" });
+  const startFree = () => {
+    if (session) router.push("/dashboard?start=free");
+    else signIn("github", { callbackUrl: "/dashboard?start=free" });
+  };
 
-  const startPlan = (plan) =>
-    signIn("github", { callbackUrl: `/dashboard/billing?plan=${plan}` });
+  const startPlan = (plan) => {
+    const target = `/dashboard/billing?plan=${plan}`;
+    if (session) router.push(target);
+    else signIn("github", { callbackUrl: target });
+  };
+
+  const goDashboard = () => router.push("/dashboard");
+  const doSignIn = () => signIn("github", { callbackUrl: "/dashboard" });
+  const doSignOut = () => signOut({ callbackUrl: "/" });
 
   return (
     <>
@@ -42,14 +54,35 @@ export default function Home() {
             <a href="#faq">FAQ</a>
             <a href="#pricing">Тарифы</a>
           </div>
-          <button
-            className="auth"
-            onClick={() => signIn("github", { callbackUrl: "/dashboard" })}
-          >
-            Войти через GitHub
-          </button>
+
+          {/* Right controls depend on auth state */}
+          {session ? (
+            <div style={{ display: "flex", gap: 8 }}>
+              <button className="auth" onClick={goDashboard}>В дашборд</button>
+              <button className="auth" onClick={doSignOut}>Выйти</button>
+            </div>
+          ) : (
+            <button className="auth" onClick={doSignIn}>Войти через GitHub</button>
+          )}
         </div>
       </nav>
+
+      {/* Logged-in banner (visible only when session exists) */}
+      {session && (
+        <div className="wrap" style={{ marginTop: 12 }}>
+          <div className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+            <div>
+              <div className="muted" style={{ fontSize: 14 }}>
+                Вы вошли как <strong>{session.user?.name || session.user?.email || "пользователь"}</strong>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button className="btn primary" onClick={goDashboard}>Перейти в дашборд</button>
+              <button className="btn secondary" onClick={doSignOut}>Выйти</button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* HERO */}
       <header className="hero" id="top">
@@ -231,7 +264,7 @@ export default function Home() {
       <section id="pricing">
         <div className="wrap">
           <h2>Тарифы</h2>
-          <div className="plans">
+        <div className="plans">
             {/* FREE */}
             <div className="card plan" id="plan-free">
               <div className="title">Free</div>
@@ -341,15 +374,4 @@ export default function Home() {
       </footer>
     </>
   );
-}
-
-/** SSR: если пользователь авторизован — редиректим на /dashboard */
-export async function getServerSideProps(ctx) {
-  const session = await getSession(ctx);
-  if (session) {
-    return {
-      redirect: { destination: "/dashboard", permanent: false },
-    };
-  }
-  return { props: {} };
 }
