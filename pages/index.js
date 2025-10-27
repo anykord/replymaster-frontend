@@ -5,6 +5,13 @@ import { signIn, getSession } from "next-auth/react";
 export default function Home() {
   const year = new Date().getFullYear();
 
+  // ——— CTA handlers ———
+  const startFree = () =>
+    signIn("github", { callbackUrl: "/dashboard?start=free" });
+
+  const startPlan = (plan) =>
+    signIn("github", { callbackUrl: `/dashboard/billing?plan=${plan}` });
+
   return (
     <>
       <Head>
@@ -58,7 +65,7 @@ export default function Home() {
               комьюнити-менеджеров и фаундеров.
             </p>
             <div className="cta">
-              <a href="/signup?plan=free" className="btn primary">Попробовать бесплатно</a>
+              <button className="btn primary" onClick={startFree}>Попробовать бесплатно</button>
               <a href="#demo" className="btn secondary">Посмотреть демо</a>
             </div>
           </div>
@@ -225,6 +232,7 @@ export default function Home() {
         <div className="wrap">
           <h2>Тарифы</h2>
           <div className="plans">
+            {/* FREE */}
             <div className="card plan" id="plan-free">
               <div className="title">Free</div>
               <div className="muted">Бесплатный старт</div>
@@ -237,11 +245,12 @@ export default function Home() {
               <div className="price">
                 0 ₽ / <span className="muted">навсегда</span>
               </div>
-              <a className="btn secondary" href="/signup?plan=free">
+              <button className="btn secondary" onClick={startFree}>
                 Выбрать Free
-              </a>
+              </button>
             </div>
 
+            {/* PRO */}
             <div className="card plan pro" id="plan-pro">
               <div className="title">
                 Pro <span className="muted" style={{ fontWeight: 600 }}>· рекомендуем</span>
@@ -257,11 +266,12 @@ export default function Home() {
               <div className="price">
                 990 ₽ / <span className="muted">мес</span>
               </div>
-              <a className="btn" href="/signup?plan=pro">
+              <button className="btn" onClick={() => startPlan("pro")}>
                 Выбрать Pro
-              </a>
+              </button>
             </div>
 
+            {/* TEAM */}
             <div className="card plan" id="plan-team">
               <div className="title">Team</div>
               <div className="muted">Для команд</div>
@@ -274,11 +284,12 @@ export default function Home() {
               <div className="price">
                 2 490 ₽ / <span className="muted">мес</span>
               </div>
-              <a className="btn secondary" href="/signup?plan=team">
+              <button className="btn secondary" onClick={() => startPlan("team")}>
                 Выбрать Team
-              </a>
+              </button>
             </div>
 
+            {/* ENTERPRISE */}
             <div className="card plan" id="plan-enterprise">
               <div className="title">Enterprise</div>
               <div className="muted">Под задачи бизнеса</div>
@@ -288,9 +299,9 @@ export default function Home() {
                 <li>Расширенные лимиты и SLA</li>
               </ul>
               <div className="price">По запросу</div>
-              <a className="btn secondary" href="/contact">
+              <button className="btn secondary" onClick={() => startPlan("enterprise")}>
                 Запросить предложение
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -315,9 +326,9 @@ export default function Home() {
               </strong>
               <div className="muted">Всё работает из коробки. Настрой за 10 минут.</div>
             </div>
-            <a className="btn primary" href="/signup?plan=free">
+            <button className="btn primary" onClick={startFree}>
               Попробовать бесплатно
-            </a>
+            </button>
           </div>
         </div>
       </section>
