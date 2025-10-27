@@ -10,7 +10,7 @@ const mockMessages = [
 export default function ChatsPage() {
   return (
     <DashboardLayout>
-      <h1 className="text-2xl font-semibold mb-4">Чаты и ответы</h1>
+      <h1 className="rm-ink" style={{fontSize:28,fontWeight:800, marginBottom:16}}>Чаты и ответы</h1>
       <div className="grid gap-4 md:grid-cols-2">
         <MessageList items={mockMessages} />
         <SuggestionPanel suggestion={{ text: 'Здравствуйте! Начать лучше с алфавита Хангыль. Могу прислать бесплатный PDF и расписание занятий.' }} />
@@ -19,5 +19,9 @@ export default function ChatsPage() {
   );
 }
 
-
-export { default } from './_secure';
+import { getSession } from 'next-auth/react';
+export async function getServerSideProps(ctx){
+  const session = await getSession(ctx);
+  if(!session){ return { redirect: { destination: '/login', permanent: false } } }
+  return { props: { session } };
+}
