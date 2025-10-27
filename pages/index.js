@@ -1,6 +1,22 @@
 import Head from 'next/head';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
+function AuthBlock() {
+  const { data: session } = useSession();
+  if (session?.user) {
+    return (
+      <div style={{display:'flex',alignItems:'center',gap:12}}>
+        <span className="small muted">Вошли как {session.user.name || session.user.email}</span>
+        <a className="auth" href="/dashboard">Перейти в Dashboard</a>
+      </div>
+    );
+  }
+  return (
+    <button className="auth" onClick={() => signIn('github', { callbackUrl: '/dashboard' })}>
+      Войти через GitHub
+    </button>
+  );
+}
 
 export default function Home() {
   return (
@@ -21,23 +37,7 @@ export default function Home() {
             <a href="#faq">FAQ</a>
             <a href="#pricing">Тарифы</a>
           </div>
-          <div>
-  {/* Auth state */}
-  {(() => {
-    // small hook usage wrapper
-    const S = require('next-auth/react').useSession;
-    const { data: session } = S();
-    if (session?.user) {
-      return (
-        <div style={{display:'flex',alignItems:'center',gap:12}}>
-          <span className="small muted">Вошли как {session.user.name || session.user.email}</span>
-          <a className="auth" href="/dashboard">Перейти в Dashboard</a>
-        </div>
-      );
-    }
-    return <button className="auth" onClick={()=>signIn('github', { callbackUrl: '/dashboard' })}>Войти через GitHub</button>;
-  })()}
-</div>
+          <AuthBlock />
         </div>
       </nav>
 
@@ -46,10 +46,10 @@ export default function Home() {
           <div>
             <div className="badge">Всё из коробки · 10 минут · Нативные лиды · Прогрев в чатах · Администрирование</div>
             <h1>Replymaster — автоматизация общения, лидогенерации и продаж в чатах</h1>
-            <p className="lead">Всё работает из коробки и настраивается за 10 минут. Replymaster помогает находить клиентов в чужих чатах, прогревать их и продавать без навязчивости. Подходит для маркетологов, арбитражников, продавцов, комьюнити‑менеджеров и фаундеров.</p>
+            <p className="lead">Всё работает из коробки и настраивается за 10 минут. Replymaster помогает находить клиентов в чужих чатах, прогревать их и продавать без навязчивости. Подходит для маркетологов, арбитражников, продавцов, комьюнити-менеджеров и фаундеров.</p>
             <div className="cta">
-              <a onClick={()=>signIn('github', { callbackUrl: '/dashboard' })} className="btn primary">Попробовать бесплатно</a>
-              <a href="/dashboard" className="btn secondary">Посмотреть демо</a>
+              <a className="btn primary" onClick={() => signIn('github', { callbackUrl: '/dashboard' })}>Попробовать бесплатно</a>
+              <a className="btn secondary" href="/dashboard">Посмотреть демо</a>
             </div>
           </div>
           <div className="mock" aria-label="Превью интерфейса"><div className="mock-inner">Скриншот интерфейса / превью видео</div></div>
@@ -93,7 +93,7 @@ export default function Home() {
           <details><summary>Сколько времени занимает настройка?</summary><p className="muted">В среднем 10 минут — всё работает из коробки.</p></details>
           <details><summary>Можно ли работать с чужими чатами?</summary><p className="muted">Да, если они открытые. Replymaster анализирует контент и помогает находить заинтересованных людей.</p></details>
           <details><summary>Работает ли это в Telegram?</summary><p className="muted">Да, основная интеграция именно с Telegram.</p></details>
-          <details><summary>Это бот или программа?</summary><p className="muted">Это веб‑приложение с панелью управления и доступом через браузер.</p></details>
+          <details><summary>Это бот или программа?</summary><p className="muted">Это веб-приложение с панелью управления и доступом через браузер.</p></details>
           <details><summary>Что входит в бесплатный тариф?</summary><p className="muted">10 сообщений, тест всех функций и безлимитный доступ к истории.</p></details>
         </div>
       </section>
@@ -108,22 +108,23 @@ export default function Home() {
               <ul className="muted" style={{margin:'8px 0 0 18px'}}>
                 <li>10 сообщений при старте</li>
                 <li>+5 сообщений каждый день использования</li>
-                <li>1 Telegram‑группа</li>
+                <li>1 Telegram-группа</li>
                 <li>Базовые автоответы (ChatGPT API)</li>
                 <li>Простой анализ (эмоции, активность)</li>
                 <li>Минимальные настройки (тон, приветствие)</li>
               </ul>
               <div className="price">0 ₽ / <span className="muted">навсегда</span></div>
               <div className="muted small note">Регистрация без карты</div>
-              <a className="btn secondary" onClick={()=>signIn('github', { callbackUrl: '/dashboard' })}>Выбрать Free</a>
+              <a className="btn secondary" onClick={() => signIn('github', { callbackUrl: '/dashboard' })}>Выбрать Free</a>
             </div>
+
             <div className="card plan pro" id="plan-pro">
               <div className="title">Pro <span className="muted" style={{fontWeight:600}}>· Рекомендуемый план</span></div>
               <div className="muted">Оптимально для блогеров и экспертов</div>
               <ul className="muted" style={{margin:'8px 0 0 18px'}}>
                 <li>Безлимит сообщений</li>
-                <li>До 3 Telegram‑групп</li>
-                <li>Автоответы на основе GPT‑4‑mini</li>
+                <li>До 3 Telegram-групп</li>
+                <li>Автоответы на основе GPT-4-mini</li>
                 <li>Кастомные подсказки: тон, стиль, примеры</li>
                 <li>Расширенная аналитика по группам</li>
                 <li>Экспорт (CSV, Google Sheets)</li>
@@ -131,28 +132,30 @@ export default function Home() {
               </ul>
               <div className="price">990 ₽ / <span className="muted">в месяц</span></div>
               <div className="muted small note">Оплата после регистрации · Можно начать с Free</div>
-              <a className="btn" onClick={()=>signIn('github', { callbackUrl: '/checkout?plan=pro' })}>Выбрать Pro</a>
+              <a className="btn" onClick={() => signIn('github', { callbackUrl: '/checkout?plan=pro' })}>Выбрать Pro</a>
             </div>
+
             <div className="card plan" id="plan-team">
               <div className="title">Team</div>
               <div className="muted">Для команд и небольших проектов</div>
               <ul className="muted" style={{margin:'8px 0 0 18px'}}>
                 <li>Безлимит сообщений</li>
-                <li>До 10 Telegram‑групп</li>
+                <li>До 10 Telegram-групп</li>
                 <li>До 5 участников команды</li>
                 <li>Совместные автоответы и база шаблонов</li>
                 <li>Отчёты по группам и участникам</li>
               </ul>
               <div className="price">2 490 ₽ / <span className="muted">в месяц</span></div>
               <div className="muted small note">Оплата после регистрации · Можно начать с Free</div>
-              <a className="btn secondary" onClick={()=>signIn('github', { callbackUrl: '/checkout?plan=team' })}>Выбрать Team</a>
+              <a className="btn secondary" onClick={() => signIn('github', { callbackUrl: '/checkout?plan=team' })}>Выбрать Team</a>
             </div>
+
             <div className="card plan" id="plan-enterprise">
               <div className="title">Enterprise</div>
               <div className="muted">Под задачи бизнеса</div>
               <ul className="muted" style={{margin:'8px 0 0 18px'}}>
                 <li>Индивидуальный сервер</li>
-                <li>White‑label</li>
+                <li>White-label</li>
                 <li>Расширенные лимиты и SLA</li>
                 <li>Персональный менеджер</li>
               </ul>
@@ -171,7 +174,7 @@ export default function Home() {
               <strong>Replymaster — автоматизируй диалоги, ищи клиентов и продавай в чатах без рутины.</strong>
               <div className="muted">Всё работает из коробки. Настрой за 10 минут.</div>
             </div>
-            <a className="btn primary" href="#start">Попробовать бесплатно</a>
+            <a className="btn primary" onClick={() => signIn('github', { callbackUrl: '/dashboard' })}>Попробовать бесплатно</a>
           </div>
         </div>
       </section>
@@ -180,5 +183,5 @@ export default function Home() {
         <div className="wrap">© {new Date().getFullYear()} Replymaster · Все права защищены · <a href="#">Политика конфиденциальности</a></div>
       </footer>
     </>
-  )
+  );
 }
