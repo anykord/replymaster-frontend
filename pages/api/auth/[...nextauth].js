@@ -9,13 +9,11 @@ export default NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: '/login'
-  },
+  pages: { signIn: '/login' },
   callbacks: {
-    async session({ session, token, user }) {
-      // You can enrich the session here
+    async session({ session }) {
+      // здесь можно обогащать сессию (id, роль и т.п.)
       return session;
-    }
-  }
+    },
+  },
 });
