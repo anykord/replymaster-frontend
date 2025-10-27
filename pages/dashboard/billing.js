@@ -4,11 +4,11 @@ import LimitUpsell from '../../components/dashboard/LimitUpsell';
 export default function BillingPage() {
   return (
     <DashboardLayout>
-      <h1 className="text-2xl font-semibold mb-4">Подписка</h1>
+      <h1 className="rm-ink" style={{fontSize:28,fontWeight:800, marginBottom:16}}>Подписка</h1>
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border bg-white p-4 shadow-sm">
+        <div className="rm-card p-4">
           <h4 className="font-semibold mb-2">Текущий план: Free</h4>
-          <p className="text-sm text-gray-600">1 аккаунт, 1 группа, 20 сообщений/день</p>
+          <p className="muted text-sm">1 аккаунт, 1 группа, 20 сообщений/день</p>
         </div>
         <LimitUpsell
           title="Хотите больше возможностей?"
@@ -21,5 +21,9 @@ export default function BillingPage() {
   );
 }
 
-
-export { default } from './_secure';
+import { getSession } from 'next-auth/react';
+export async function getServerSideProps(ctx){
+  const session = await getSession(ctx);
+  if(!session){ return { redirect: { destination: '/login', permanent: false } } }
+  return { props: { session } };
+}
