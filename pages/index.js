@@ -177,7 +177,7 @@ export default function Home() {
       <section id="reviews">
         <div className="wrap">
           <h2>Отзывы</h2>
-        <div className="grid cols-3">
+          <div className="grid cols-3">
             <div className="card">
               <div className="muted">⭐️⭐️⭐️⭐️⭐️</div>
               <p>«Беру лидов прямо из нишевых групп!»</p>
@@ -328,99 +328,16 @@ export default function Home() {
           <a href="#">Политика конфиденциальности</a>
         </div>
       </footer>
-
-      {/* ==== глобальные стили лендинга (styled-jsx) ==== */}
-      <style jsx global>{`
-        :root {
-          --bg: #ffffff;
-          --card: #ffffff;
-          --ink: #0b1221;
-          --text: #2a2f3a;
-          --muted: #5c6473;
-          --accent: #0a56e8;
-          --soft: #eff3fb;
-          --line: #e6eaf0;
-        }
-        * { box-sizing: border-box; }
-        html, body { height: 100%; }
-        body { margin: 0; color: var(--text); background: var(--bg); }
-        a { color: var(--accent); text-decoration: none; }
-        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-
-        /* Navbar */
-        .sticky-nav { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); }
-        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-        .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--ink); }
-        .brand .logo { width: 24px; height: 24px; border-radius: 4px; background: #0a56e8; }
-        .menu { display: flex; gap: 22px; color: var(--muted); }
-        .menu a { color: var(--muted); }
-        .menu a:hover { color: var(--ink); text-decoration: underline; }
-        .auth { padding: 10px 14px; border-radius: 999px; background: var(--soft); color: var(--accent); font-weight: 700; border: 0; cursor: pointer; }
-
-        /* Hero */
-        header.hero { padding: 56px 0 40px; background: #fff; }
-        .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; align-items: center; }
-        .badge { display: inline-flex; gap: 10px; align-items: center; padding: 8px 12px; border-radius: 999px; background: var(--soft); color: var(--accent); font-weight: 700; font-size: 12px; }
-        h1 { color: var(--ink); font-size: 42px; line-height: 1.15; margin: 10px 0 8px; font-weight: 800; letter-spacing: 0.1px; }
-        .lead { font-size: 18px; line-height: 1.6; color: var(--text); max-width: 720px; }
-        .cta { display: flex; gap: 12px; margin-top: 16px; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 13px 18px; border-radius: 10px; font-weight: 700; transition: all 0.15s ease; }
-        .btn.primary { background: var(--accent); color: #fff; border: 1px solid transparent; }
-        .btn.secondary { background: #fff; color: var(--accent); border: 1px solid #cfd7e6; }
-        .btn.primary:hover { filter: brightness(0.96); }
-        .btn.secondary:hover { background: #f7faff; border-color: var(--accent); }
-        .mock { background: #fff; border: 1px solid var(--line); border-radius: 12px; min-height: 320px; }
-        .mock::before { content: ""; display: block; height: 44px; border-bottom: 1px solid var(--line); background: #fafbff; }
-        .mock-inner { padding: 16px; color: #8ea1bf; text-align: center; }
-
-        /* Sections */
-        section { padding: 56px 0; border-top: 1px solid var(--line); }
-        h2 { font-size: 26px; margin: 0 0 12px; color: var(--ink); font-weight: 750; letter-spacing: 0.2px; }
-        .grid { display: grid; gap: 16px; }
-        .cols-3 { grid-template-columns: repeat(3, 1fr); }
-        .cols-2 { grid-template-columns: repeat(2, 1fr); }
-        .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 18px; }
-        .card:hover { border-color: #d6deea; }
-        .muted { color: var(--muted); }
-        .list { display: grid; gap: 8px; }
-
-        /* Pricing */
-        .plans { display: grid; gap: 16px; grid-template-columns: repeat(4, 1fr); align-items: stretch; }
-        .plan .title { font-weight: 800; font-size: 18px; letter-spacing: 0.2px; }
-        .price { font-size: 28px; font-weight: 800; color: var(--ink); margin-top: 8px; }
-        .plan .btn { width: 100%; margin-top: 8px; }
-        .plan.pro { border: 2px solid var(--accent); }
-
-        /* FAQ + Footer */
-        details { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 10px 14px; }
-        details + details { margin-top: 10px; }
-        summary { cursor: pointer; font-weight: 650; }
-        footer { padding: 28px 0; color: var(--muted); }
-
-        /* Responsive */
-        @media (max-width: 980px) {
-          .hero-grid { grid-template-columns: 1fr; }
-          h1 { font-size: 34px; }
-          .plans { grid-template-columns: 1fr; }
-          .cols-3 { grid-template-columns: 1fr; }
-          .cols-2 { grid-template-columns: 1fr; }
-        }
-      `}</style>
     </>
   );
 }
 
-/**
- * SSR: если пользователь авторизован — редиректим на /dashboard
- */
+/** SSR: если пользователь авторизован — редиректим на /dashboard */
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
   if (session) {
     return {
-      redirect: {
-        destination: "/dashboard",
-        permanent: false,
-      },
+      redirect: { destination: "/dashboard", permanent: false },
     };
   }
   return { props: {} };
