@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import { signIn, signOut, useSession } from 'next-auth/react';
+
 
 export default function Home() {
   return (
@@ -19,7 +21,23 @@ export default function Home() {
             <a href="#faq">FAQ</a>
             <a href="#pricing">Тарифы</a>
           </div>
-          <a className="auth" href="#login" style={{background:'#fff',border:'1px solid #cfd7e6',color:'var(--ink)',fontWeight:600}}>Войти через GitHub</a>
+          <div>
+  {/* Auth state */}
+  {(() => {
+    // small hook usage wrapper
+    const S = require('next-auth/react').useSession;
+    const { data: session } = S();
+    if (session?.user) {
+      return (
+        <div style={{display:'flex',alignItems:'center',gap:12}}>
+          <span className="small muted">Вошли как {session.user.name || session.user.email}</span>
+          <a className="auth" href="/dashboard">Перейти в Dashboard</a>
+        </div>
+      );
+    }
+    return <button className="auth" onClick={()=>signIn('github', { callbackUrl: '/dashboard' })}>Войти через GitHub</button>;
+  })()}
+</div>
         </div>
       </nav>
 
@@ -30,8 +48,8 @@ export default function Home() {
             <h1>Replymaster — автоматизация общения, лидогенерации и продаж в чатах</h1>
             <p className="lead">Всё работает из коробки и настраивается за 10 минут. Replymaster помогает находить клиентов в чужих чатах, прогревать их и продавать без навязчивости. Подходит для маркетологов, арбитражников, продавцов, комьюнити‑менеджеров и фаундеров.</p>
             <div className="cta">
-              <a href="/signup?plan=free" className="btn primary">Попробовать бесплатно</a>
-              <a href="#demo" className="btn secondary">Посмотреть демо</a>
+              <a onClick={()=>signIn('github', { callbackUrl: '/dashboard' })} className="btn primary">Попробовать бесплатно</a>
+              <a href="/dashboard" className="btn secondary">Посмотреть демо</a>
             </div>
           </div>
           <div className="mock" aria-label="Превью интерфейса"><div className="mock-inner">Скриншот интерфейса / превью видео</div></div>
@@ -97,7 +115,7 @@ export default function Home() {
               </ul>
               <div className="price">0 ₽ / <span className="muted">навсегда</span></div>
               <div className="muted small note">Регистрация без карты</div>
-              <a className="btn secondary" href="/signup?plan=free">Выбрать Free</a>
+              <a className="btn secondary" onClick={()=>signIn('github', { callbackUrl: '/dashboard' })}>Выбрать Free</a>
             </div>
             <div className="card plan pro" id="plan-pro">
               <div className="title">Pro <span className="muted" style={{fontWeight:600}}>· Рекомендуемый план</span></div>
@@ -113,7 +131,7 @@ export default function Home() {
               </ul>
               <div className="price">990 ₽ / <span className="muted">в месяц</span></div>
               <div className="muted small note">Оплата после регистрации · Можно начать с Free</div>
-              <a className="btn" href="/signup?plan=pro">Выбрать Pro</a>
+              <a className="btn" onClick={()=>signIn('github', { callbackUrl: '/checkout?plan=pro' })}>Выбрать Pro</a>
             </div>
             <div className="card plan" id="plan-team">
               <div className="title">Team</div>
@@ -127,7 +145,7 @@ export default function Home() {
               </ul>
               <div className="price">2 490 ₽ / <span className="muted">в месяц</span></div>
               <div className="muted small note">Оплата после регистрации · Можно начать с Free</div>
-              <a className="btn secondary" href="/signup?plan=team">Выбрать Team</a>
+              <a className="btn secondary" onClick={()=>signIn('github', { callbackUrl: '/checkout?plan=team' })}>Выбрать Team</a>
             </div>
             <div className="card plan" id="plan-enterprise">
               <div className="title">Enterprise</div>
