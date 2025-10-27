@@ -34,3 +34,6 @@ export default function GroupsPage() {
     </DashboardLayout>
   );
 }
+
+
+export { default } from './_secure';

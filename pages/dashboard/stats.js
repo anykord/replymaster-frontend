@@ -14,3 +14,6 @@ export default function StatsPage() {
     </DashboardLayout>
   );
 }
+
+
+export { default } from './_secure';

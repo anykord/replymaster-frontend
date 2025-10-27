@@ -14,3 +14,6 @@ export default function LeadsPage() {
     </DashboardLayout>
   );
 }
+
+
+export { default } from './_secure';

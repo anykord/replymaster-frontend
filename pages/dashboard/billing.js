@@ -20,3 +20,6 @@ export default function BillingPage() {
     </DashboardLayout>
   );
 }
+
+
+export { default } from './_secure';

@@ -18,3 +18,6 @@ export default function ChatsPage() {
     </DashboardLayout>
   );
 }
+
+
+export { default } from './_secure';

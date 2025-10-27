@@ -17,3 +17,6 @@ export default function SetupPage() {
     </DashboardLayout>
   );
 }
+
+
+export { default } from './_secure';

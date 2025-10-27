@@ -34,3 +34,6 @@ export default function AccountsPage() {
     </DashboardLayout>
   );
 }
+
+
+export { default } from './_secure';
