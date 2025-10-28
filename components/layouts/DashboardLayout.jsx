@@ -1,36 +1,35 @@
 // components/layouts/DashboardLayout.jsx
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
 
-function SidebarItem({ href, label, active }) {
-  const isActive = active === href;
+function NavItem({ href, children }) {
+  const router = useRouter();
+  const active = router.pathname === href;
   return (
     <li>
       <Link
         href={href}
-        className={`block px-3 py-2 rounded text-sm ${
-          isActive ? "bg-gray-100 text-gray-900 font-semibold"
-                   : "text-blue-600 hover:bg-gray-50"
-        }`}
+        className={`dash-nav-link ${active ? "active" : ""}`}
       >
-        {label}
+        {children}
       </Link>
     </li>
   );
 }
 
-function Sidebar({ active }) {
+function Sidebar() {
   return (
-    <aside className="col-span-12 md:col-span-3 lg:col-span-2">
-      <ul className="space-y-1">
-        <SidebarItem href="/dashboard" label="Главная" active={active} />
-        <SidebarItem href="/dashboard/accounts" label="Аккаунты" active={active} />
-        <SidebarItem href="/dashboard/groups" label="Группы" active={active} />
-        <SidebarItem href="/dashboard/setup" label="AI Сетап" active={active} />
-        <SidebarItem href="/dashboard/chats" label="Ответы" active={active} />
-        <SidebarItem href="/dashboard/leads" label="Лиды" active={active} />
-        <SidebarItem href="/dashboard/stats" label="Статистика" active={active} />
-        <SidebarItem href="/dashboard/billing" label="Подписка" active={active} />
+    <aside className="dash-sidebar">
+      <ul className="dash-nav">
+        <NavItem href="/dashboard">Главная</NavItem>
+        <NavItem href="/dashboard/accounts">Аккаунты</NavItem>
+        <NavItem href="/dashboard/groups">Группы</NavItem>
+        <NavItem href="/dashboard/setup">AI Сетап</NavItem>
+        <NavItem href="/dashboard/chats">Ответы</NavItem>
+        <NavItem href="/dashboard/leads">Лиды</NavItem>
+        <NavItem href="/dashboard/stats">Статистика</NavItem>
+        <NavItem href="/dashboard/billing">Подписка</NavItem>
       </ul>
     </aside>
   );
@@ -39,17 +38,18 @@ function Sidebar({ active }) {
 function Topbar() {
   const { data: session } = useSession();
   return (
-    <header className="border-b">
-      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="inline-block w-3 h-3 rounded bg-blue-600" />
-          <span className="font-semibold">Replymaster</span>
+    <header className="dash-topbar">
+      <div className="dash-container dash-topbar-inner">
+        <div className="dash-brand">
+          <span className="dot" />
+          <span className="title">Replymaster</span>
         </div>
-        <div className="flex items-center gap-3 text-sm">
-          <span className="text-gray-500">{session?.user?.name || "anykord"}</span>
+        <div className="dash-user">
+          <span className="name">{session?.user?.name || "anykord"}</span>
           <button
-            className="px-3 py-1 rounded border hover:bg-gray-50"
+            className="btn"
             onClick={() => signOut({ callbackUrl: "/" })}
+            aria-label="Выйти"
           >
             Выйти
           </button>
@@ -59,14 +59,14 @@ function Topbar() {
   );
 }
 
-export default function DashboardLayout({ children, active, title }) {
+export default function DashboardLayout({ children, title }) {
   return (
     <>
       <Topbar />
-      <div className="mx-auto max-w-7xl px-4 py-6 grid grid-cols-12 gap-6">
-        <Sidebar active={active} />
-        <main className="col-span-12 md:col-span-9 lg:col-span-10">
-          {title ? <h1 className="text-3xl font-extrabold mb-6">{title}</h1> : null}
+      <div className="dash-container dash-shell">
+        <Sidebar />
+        <main className="dash-main">
+          {title ? <h1 className="dash-h1">{title}</h1> : null}
           {children}
         </main>
       </div>
