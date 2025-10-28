@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+  <title>Replymaster — AI программа для общения, лидогенерации и продаж в чатах | Всё из коробки за 10 минут</title>
+  <meta name="description" content="Replymaster — нейросеть для автоматизации ответов и продаж в чатах. Ищите клиентов в Telegram и других группах нативно, без спама. Всё из коробки, настройка за 10 минут. Бесплатно — 10 сообщений." />
+  <link rel="canonical" href="https://replymaster.top/" />
+
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <meta name="googlebot" content="index,follow" />
+  <meta name="yandex" content="all" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:url" content="https://replymaster.top/" />
+  <meta property="og:title" content="Replymaster — AI для общения, лидов и продаж в чатах" />
+  <meta property="og:description" content="Ищите клиентов в Telegram/группах, прогревайте и продавайте нативно. Всё из коробки, настройка за 10 минут. Бесплатно — 10 сообщений." />
+  <meta property="og:image" content="https://replymaster.top/og-image.jpg" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Replymaster — AI для общения, лидов и продаж в чатах" />
+  <meta name="twitter:description" content="Поиск клиентов в чужих чатах, прогрев, продажи и администрирование. Из коробки, 10 минут на старт." />
+  <meta name="twitter:image" content="https://replymaster.top/og-image.jpg" />
+
+  <meta name="theme-color" content="#0b62ff" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#ffffff; --card:#ffffff; --ink:#0b1221; --text:#2a2f3a; --muted:#5c6473; --accent:#0a56e8; --soft:#eff3fb; --line:#e6eaf0;
+      --radius:10px; --radius-sm:8px; --shadow:0 2px 10px rgba(2,13,46,.06);
+      --shadow-soft:0 1px 4px rgba(2,13,46,.05);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg);}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+    /* Navbar */
+    .nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink)}
+    .brand .logo{width:24px;height:24px;border-radius:4px;background:#0a56e8}
+    .menu{display:flex;gap:22px;color:var(--muted)}
+    .auth{padding:10px 14px;border-radius:999px;background:var(--soft);color:var(--accent);font-weight:700}
+
+    /* Hero */
+    header.hero{padding:56px 0 40px;background:#fff}
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+    .badge{display:inline-flex;gap:10px;align-items:center;padding:8px 12px;border-radius:999px;background:var(--soft);color:var(--accent);font-weight:700;font-size:12px}
+    h1{color:var(--ink);font-size:42px;line-height:1.15;margin:10px 0 8px;font-weight:800;letter-spacing:.1px} 
+    .lead{font-size:18px;line-height:1.6;color:var(--text);max-width:720px}
+    .cta{display:flex;gap:12px;margin-top:16px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:10px;font-weight:700;transition:all .15s ease} 
+    .btn.primary{background:var(--accent);color:#fff;box-shadow:none;border:1px solid transparent} 
+    .btn.secondary{background:#fff;color:var(--accent);border:1px solid #cfd7e6;box-shadow:none} 
+
+    .mock{background:#fff;border:1px solid var(--line);border-radius:12px;min-height:320px;box-shadow:none}
+    .mock::before{content:"";display:block;height:44px;border-bottom:1px solid var(--line);background:#fafbff}
+    .mock-inner{padding:16px;color:#8ea1bf;text-align:center}
+
+    /* Sections */
+    section{padding:56px 0;border-top:1px solid var(--line)} 
+    h2{font-size:26px;margin:0 0 12px;color:var(--ink);font-weight:750;letter-spacing:.2px} 
+    .grid{display:grid;gap:16px}
+    .cols-3{grid-template-columns:repeat(3,1fr)}
+    .cols-2{grid-template-columns:repeat(2,1fr)}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;box-shadow:none} 
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+    .note{margin-top:6px} 
+    .list{display:grid;gap:8px}
+
+    /* Pricing */
+    .plans{display:grid;gap:16px;grid-template-columns:repeat(4,1fr);align-items:stretch} 
+    .plan .title{font-weight:800;font-size:18px}
+    .price{font-size:28px;font-weight:800;color:var(--ink)}
+    .plan .btn{width:100%;margin-top:8px}
+    .plan.pro{border-color:#cfe0ff}
+    .plan.pro .btn{background:var(--accent);color:#fff}
+
+    /* FAQ */
+    details{border:1px solid var(--line);border-radius:12px;background:#fff;padding:10px 14px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:700;color:var(--ink)}
+
+    footer{padding:28px 0;color:var(--muted)}
+
+    @media (max-width:980px){
+      .hero-grid{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .plans{grid-template-columns:1fr}
+      .cols-3{grid-template-columns:1fr}
+      .cols-2{grid-template-columns:1fr}
+    }
+  .btn.primary:hover{filter:brightness(.96)}
+    .btn.secondary:hover{background:#f7faff;border-color:var(--accent)}
+    .menu a{color:var(--muted)} .menu a:hover{color:var(--ink);text-decoration:underline}
+    .card:hover{border-color:#d6deea}
+    .plan.pro{border:2px solid var(--accent)}
+    .plan .title{font-weight:800;letter-spacing:.2px}
+    .price{margin-top:8px}
+    details{transition:background .15s ease}
+    summary{cursor:pointer;font-weight:650}
+    summary:hover{color:var(--ink)}
+  </style>
+
+  <!-- JSON-LD: Organization + SoftwareApplication + FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"Replymaster",
+    "url":"https://replymaster.top/",
+    "logo":"https://replymaster.top/logo.png",
+    "sameAs":["https://t.me/your_channel","https://github.com/your_repo"],
+    "contactPoint":[{"@type":"ContactPoint","contactType":"customer support","email":"support@replymaster.top","availableLanguage":["ru","en"]}]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Replymaster",
+    "applicationCategory":"BusinessApplication",
+    "operatingSystem":"Web",
+    "description":"AI-платформа для автоматизации ответов и продаж в чатах.",
+    "url":"https://replymaster.top/",
+    "image":"https://replymaster.top/og-image.jpg",
+    "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","ratingCount":"257"}
+  }
+  </script>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="brand"><span class="logo"></span> <span>Replymaster</span></div>
+      <div class="menu">
+        <a href="#about">Что это</a>
+        <a href="#features">Возможности</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#faq">FAQ</a>
+        <a href="#pricing">Тарифы</a>
+      </div>
+      <a class="auth" style="background:#fff;border:1px solid #cfd7e6;color:var(--ink);font-weight:600" href="#login">Войти через GitHub</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="badge">Всё из коробки · 10 минут · Нативные лиды · Прогрев в чатах · Администрирование</div>
+        <h1>Replymaster — автоматизация общения, лидогенерации и продаж в чатах</h1>
+        <p class="lead">Всё работает из коробки и настраивается за 10 минут. Replymaster помогает находить клиентов в чужих чатах, прогревать их и продавать без навязчивости. Подходит для маркетологов, арбитражников, продавцов, комьюнити‑менеджеров и фаундеров.</p>
+        <div class="cta">
+          <a href="/signup?plan=free" class="btn primary">Попробовать бесплатно</a>
+          <a href="#demo" class="btn secondary">Посмотреть демо</a>
+        </div>
+      </div>
+      <div class="mock" aria-label="Превью интерфейса"><div class="mock-inner">Скриншот интерфейса / превью видео</div></div>
+    </div>
+  </header>
+
+  <!-- SHORT ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <h2>Короткое описание</h2>
+      <div class="card">
+        Replymaster — это универсальная платформа, которая автоматизирует работу с чатами, группами и личными сообщениями. Она помогает находить и прогревать клиентов прямо в их среде общения — в Telegram, Discord или других сообществах. Всё подключается и работает без сложной настройки — просто войди, выбери чат и начни действовать.
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <h2>Основные возможности</h2>
+      <div class="grid cols-3">
+        <div class="card"><strong>1. Получать нативные лиды из открытых чатов</strong><p class="muted">Replymaster анализирует диалоги в открытых группах и подбирает людей, которые уже интересуются вашим продуктом. Вы получаете горячие контакты без спама и холодных рассылок.</p></div>
+        <div class="card"><strong>2. Прогревать и продавать без давления</strong><p class="muted">Система помогает выстраивать естественные диалоги, подсказывает фразы, генерирует ответы и сохраняет сценарии, которые работают лучше всего.</p></div>
+        <div class="card"><strong>3. Вести собственные чаты и группы как администратор</strong><p class="muted">Автомодерация, приветствия, удаление спама и аналитика активности — экономит время и поддерживает здоровую коммуникацию.</p></div>
+        <div class="card"><strong>4. Старт «из коробки»</strong><p class="muted">Не нужно программировать — войдите, подключите чаты и начните использовать. Полная настройка занимает до 10 минут.</p></div>
+        <div class="card"><strong>5. Автоматизация и аналитика</strong><p class="muted">Отслеживание активности, учёт лидов и эффективность диалогов — метрики и отчёты в одном месте.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section>
+    <div class="wrap">
+      <h2>Преимущества</h2>
+      <div class="grid cols-2">
+        <div class="card list">
+          <div>Настройка за 10 минут — не требуется обучение и интеграторы.</div>
+          <div>Готово к работе «из коробки».</div>
+          <div>Работа с открытыми чатами — без нарушений правил и без спама.</div>
+          <div>Рост продаж за счёт диалогов вместо холодных рассылок.</div>
+        </div>
+        <div class="card list">
+          <div>Поддержка нескольких платформ: Telegram, Discord, Slack.</div>
+          <div>Искусственный интеллект, адаптирующийся под ваш стиль.</div>
+          <div>Режим администратора для собственных сообществ.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE 10 -->
+  <section id="free">
+    <div class="wrap">
+      <h2>10 бесплатных сообщений</h2>
+      <div class="card">
+        🎁 Начни бесплатно — всё включено: после регистрации ты получаешь 10 бесплатных сообщений, чтобы протестировать систему. Никаких карт, подписок и автосписаний. Просто попробуй и оцени результат.
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTIONS -->
+  <section>
+    <div class="wrap">
+      <h2>Работа со страхами и возражениями</h2>
+      <div class="grid cols-2">
+        <div class="card"><strong>А вдруг это сложно?</strong><p class="muted">Сервис работает из коробки. Запуск — до 10 минут, без обучения и техподдержки.</p></div>
+        <div class="card"><strong>Можно ли использовать в чужих чатах?</strong><p class="muted">Да. Анализируются только открытые чаты; диалоги — нативные, без спама.</p></div>
+        <div class="card"><strong>Это законно и безопасно?</strong><p class="muted">Replymaster соблюдает правила платформ, не нарушает приватность и не делает рассылок без вашего участия.</p></div>
+        <div class="card"><strong>Подойдёт ли мне?</strong><p class="muted">Если вы работаете с аудиторией — да. Подходит маркетологам, арбитражникам, комьюнити‑менеджерам и владельцам бизнеса.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="wrap">
+      <h2>Отзывы пользователей</h2>
+      <div class="grid cols-3">
+        <div class="card"><div class="muted">⭐️⭐️⭐️⭐️⭐️</div><p>«Беру лидов прямо из нишевых групп! Replymaster показывает, кто интересуется темой — я просто захожу в диалог и общаюсь.»</p><div class="muted">— Артём, арбитражник</div></div>
+        <div class="card"><div class="muted">⭐️⭐️⭐️⭐️⭐️</div><p>«Настроила за 8 минут. Работает идеально — даже не ожидала, что можно так просто управлять чатами.»</p><div class="muted">— Ксения, комьюнити‑менеджер</div></div>
+        <div class="card"><div class="muted">⭐️⭐️⭐️⭐️⭐️</div><p>«Раньше всё делал вручную — теперь Replymaster сам находит людей и помогает вести разговор. Очень органично!»</p><div class="muted">— Дмитрий, инфомаркетолог</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <h2>FAQ</h2>
+      <details><summary>Сколько времени занимает настройка?</summary><p class="muted">В среднем 10 минут — всё работает из коробки.</p></details>
+      <details><summary>Можно ли работать с чужими чатами?</summary><p class="muted">Да, если они открытые. Replymaster анализирует контент и помогает находить заинтересованных людей.</p></details>
+      <details><summary>Работает ли это в Telegram?</summary><p class="muted">Да, основная интеграция именно с Telegram.</p></details>
+      <details><summary>Это бот или программа?</summary><p class="muted">Это веб‑приложение с панелью управления и доступом через браузер.</p></details>
+      <details><summary>Что входит в бесплатный тариф?</summary><p class="muted">10 сообщений, тест всех функций и безлимитный доступ к истории.</p></details>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <h2>Тарифы</h2>
+      <div class="plans">
+        <!-- FREE -->
+        <div class="card plan" id="plan-free">
+          <div class="title">Free</div>
+          <div class="muted">Бесплатный старт</div>
+          <ul class="muted" style="margin:8px 0 0 18px;">
+            <li>10 сообщений при старте</li>
+            <li>+5 сообщений каждый день использования</li>
+            <li>1 Telegram‑группа</li>
+            <li>Базовые автоответы (ChatGPT API)</li>
+            <li>Простой анализ (эмоции, активность)</li>
+            <li>Минимальные настройки (тон, приветствие)</li>
+          </ul>
+          <div class="price">0 ₽ / <span class="muted">навсегда</span></div>
+          <div class="muted small note">Регистрация без карты</div>
+          <a class="btn secondary" href="/signup?plan=free">Выбрать Free</a>
+        </div>
+        <!-- PRO -->
+        <div class="card plan pro" id="plan-pro">
+          <div class="title">Pro <span class="muted" style="font-weight:600">· Рекомендуемый план</span></div>
+          <div class="muted">Оптимально для блогеров и экспертов</div>
+          <ul class="muted" style="margin:8px 0 0 18px;">
+            <li>Безлимит сообщений</li>
+            <li>До 3 Telegram‑групп</li>
+            <li>Автоответы на основе GPT‑4‑mini</li>
+            <li>Кастомные подсказки: тон, стиль, примеры</li>
+            <li>Расширенная аналитика по группам</li>
+            <li>Экспорт (CSV, Google Sheets)</li>
+            <li>Базовая автоматизация (триггеры)</li>
+          </ul>
+          <div class="price">990 ₽ / <span class="muted">в месяц</span></div>
+          <div class="muted small note">Оплата после регистрации · Можно начать с Free</div>
+          <a class="btn" href="/signup?plan=pro">Выбрать Pro</a>
+        </div>
+        <!-- TEAM -->
+        <div class="card plan" id="plan-team">
+          <div class="title">Team</div>
+          <div class="muted">Для команд и небольших проектов</div>
+          <ul class="muted" style="margin:8px 0 0 18px;">
+            <li>Безлимит сообщений</li>
+            <li>До 10 Telegram‑групп</li>
+            <li>До 5 участников команды</li>
+            <li>Совместные автоответы и база шаблонов</li>
+            <li>Отчёты по группам и участникам</li>
+          </ul>
+          <div class="price">2 490 ₽ / <span class="muted">в месяц</span></div>
+          <div class="muted small note">Оплата после регистрации · Можно начать с Free</div>
+          <a class="btn secondary" href="/signup?plan=team">Выбрать Team</a>
+        </div>
+        <!-- ENTERPRISE (опционально, скрыт при узких экранах) -->
+        <div class="card plan" id="plan-enterprise">
+          <div class="title">Enterprise</div>
+          <div class="muted">Под задачи бизнеса</div>
+          <ul class="muted" style="margin:8px 0 0 18px;">
+            <li>Индивидуальный сервер</li>
+            <li>White‑label</li>
+            <li>Расширенные лимиты и SLA</li>
+            <li>Персональный менеджер</li>
+          </ul>
+          <div class="price">По запросу</div>
+          <div class="muted small note">Оставьте заявку — свяжемся для предложения</div>
+          <a class="btn secondary" href="/contact">Запросить предложение</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section>
+    <div class="wrap">
+      <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div>
+          <strong>Replymaster — автоматизируй диалоги, ищи клиентов и продавай в чатах без рутины.</strong>
+          <div class="muted">Всё работает из коробки. Настрой за 10 минут.</div>
+        </div>
+        <a class="btn primary" href="#start">Попробовать бесплатно</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">© <span id="y"></span> Replymaster · Все права защищены · <a href="#">Политика конфиденциальности</a></div>
+  </footer>
+
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
