@@ -1,75 +1,37 @@
-// components/layouts/DashboardLayout.jsx
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useSession, signOut } from "next-auth/react";
+import Link from 'next/link'
 
-function NavItem({ href, children }) {
-  const router = useRouter();
-  const active = router.pathname === href;
+export default function DashboardLayout({ children }) {
   return (
-    <li>
-      <Link
-        href={href}
-        className={`dash-nav-link ${active ? "active" : ""}`}
-      >
-        {children}
-      </Link>
-    </li>
-  );
-}
-
-function Sidebar() {
-  return (
-    <aside className="dash-sidebar">
-      <ul className="dash-nav">
-        <NavItem href="/dashboard">Главная</NavItem>
-        <NavItem href="/dashboard/accounts">Аккаунты</NavItem>
-        <NavItem href="/dashboard/groups">Группы</NavItem>
-        <NavItem href="/dashboard/setup">AI Сетап</NavItem>
-        <NavItem href="/dashboard/chats">Ответы</NavItem>
-        <NavItem href="/dashboard/leads">Лиды</NavItem>
-        <NavItem href="/dashboard/stats">Статистика</NavItem>
-        <NavItem href="/dashboard/billing">Подписка</NavItem>
-      </ul>
-    </aside>
-  );
-}
-
-function Topbar() {
-  const { data: session } = useSession();
-  return (
-    <header className="dash-topbar">
-      <div className="dash-container dash-topbar-inner">
-        <div className="dash-brand">
-          <span className="dot" />
-          <span className="title">Replymaster</span>
+    <div className="rm-app">
+      <header className="rm-topbar">
+        <div className="rm-brand">
+          <span className="rm-brand-dot"></span>
+          <span>Replymaster</span>
         </div>
-        <div className="dash-user">
-          <span className="name">{session?.user?.name || "anykord"}</span>
-          <button
-            className="btn"
-            onClick={() => signOut({ callbackUrl: "/" })}
-            aria-label="Выйти"
-          >
-            Выйти
-          </button>
+        <div className="rm-user">
+          <span id="rm-username" className="muted">anykord</span>
+          <Link href="/api/auth/logout" className="btn">Выйти</Link>
         </div>
-      </div>
-    </header>
-  );
-}
+      </header>
 
-export default function DashboardLayout({ children, title }) {
-  return (
-    <>
-      <Topbar />
-      <div className="dash-container dash-shell">
-        <Sidebar />
-        <main className="dash-main">
-          {title ? <h1 className="dash-h1">{title}</h1> : null}
+      <div className="rm-shell">
+        <aside className="rm-sidebar">
+          <nav className="rm-nav">
+            <Link href="/dashboard">Главная</Link>
+            <Link href="/dashboard/accounts">Аккаунты</Link>
+            <Link href="/dashboard/groups">Группы</Link>
+            <Link href="/dashboard/ai">AI Сетап</Link>
+            <Link href="/dashboard/replies">Ответы</Link>
+            <Link href="/dashboard/leads">Лиды</Link>
+            <Link href="/dashboard/stats">Статистика</Link>
+            <Link href="/dashboard/billing">Подписка</Link>
+          </nav>
+        </aside>
+
+        <main className="rm-content">
           {children}
         </main>
       </div>
-    </>
-  );
+    </div>
+  )
 }
