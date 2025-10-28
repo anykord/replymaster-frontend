@@ -1,8 +1,17 @@
+// pages/dashboard/_secure.js
 import { getSession } from 'next-auth/react';
-import Page from './index';
-export default Page;
-export async function getServerSideProps(ctx){
+
+/**
+ * Общий SSR-гвард для всех страниц /dashboard/*
+ * - редиректит неавторизованных на /login
+ * - отключает пререндер (SSG) для этих страниц
+ */
+export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);
-  if(!session){ return { redirect: { destination: '/login', permanent: false } } }
+  if (!session) {
+    return {
+      redirect: { destination: '/login', permanent: false },
+    };
+  }
   return { props: { session } };
 }
