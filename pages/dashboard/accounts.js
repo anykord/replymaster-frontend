@@ -1,7 +1,7 @@
 // pages/dashboard/accounts.js
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import DashboardLayout from "../../components/layouts/DashboardLayout";
+import DashboardLayout from "../../components/dashboard/Layout";
 import AddAccountDialog from "../../components/dashboard/AddAccountDialog";
 
 // хранилище на клиенте
